@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>btn-wave</title>
+    <style>
+        body{
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: #000;
+            z-index: -1;
+        }
+        a{
+            position: relative;
+            text-decoration: none;
+            padding: 0.4rem 2rem;
+            margin-left: 2rem;
+            color: #fff;
+            border-radius: 3rem;
+            background-image: linear-gradient(rgb(31, 162, 223),rgb(45, 214, 192));
+            overflow: hidden;
+        }
+        spam{
+            position: absolute;
+            background: #fff;
+            transform: translate(-50%,-50%);
+            pointer-events: none;
+            border-radius: 50%;
+            animation: anime 1s linear infinite;
+        }
+        @keyframes anime{
+            0%{
+                width: 0px;
+                height: 0px;
+                opacity: 0.6;
+            }
+            100%{
+                width: 400px;
+                height: 400px;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="#!">btn One</a>
+    <a href="#!">btn two</a>
+<script>
+const buttons = document.querySelectorAll('a');
+buttons.forEach(btn => {
+    btn.addEventListener('click',function(e){
+        let x = e.clientX - e.target.offsetLeft;
+        let y = e.clientY - e.target.offsetTop;
+
+        let ripples = document.createElement('spam');
+        ripples.style.left = x + 'px';
+        ripples.style.top = y + 'px';
+        this.appendChild(ripples);
+        setTimeout(()=>{
+            ripples.remove()
+        },1000);
+    });
+});
+</script>
+</body>
+</html>
